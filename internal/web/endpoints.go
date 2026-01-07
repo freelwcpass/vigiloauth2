@@ -55,8 +55,10 @@ var OAuthEndpoints = struct {
 
 var AdminEndpoints = struct {
 	GetAuditEvents string
+	GetPasswordPolicy string
 }{
 	GetAuditEvents: defaultAdminEndpoint + "/audit-events",
+	GetPasswordPolicy: defaultAdminEndpoint + "/password-policy",
 }
 
 var OIDCEndpoints = struct {
