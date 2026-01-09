@@ -2,6 +2,8 @@ package config
 
 import (
 	"fmt"
+
+	domain "github.com/vigiloauth/vigilo/v2/internal/domain/passwords"
 )
 
 const defaultRequiredPasswordLength int = 5
@@ -157,5 +159,14 @@ func (cfg *PasswordConfig) loadOptions(opts ...PasswordConfigOptions) {
 		}
 	} else {
 		cfg.logger.Info(cfg.module, "", "Using default password config")
+	}
+}
+
+func (cfg *PasswordConfig) GetPasswordPolicy() domain.PasswordPolicyResponse {
+	return domain.PasswordPolicyResponse{
+		RequireUpper:  cfg.RequireUppercase(),
+		RequireNumber: cfg.RequireNumber(),
+		RequireSymbol: cfg.RequireSymbol(),
+		MinLength:     cfg.MinLength(),
 	}
 }

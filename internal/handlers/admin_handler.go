@@ -18,13 +18,6 @@ type AdminHandler struct {
 	module      string
 }
 
-type PasswordPolicyResponse struct {
-	RequireUpper  bool `json:"require_upper"`
-	RequireNumber bool `json:"require_number"`
-	RequireSymbol bool `json:"require_symbol"`
-	MinLength     int  `json:"min_length"`
-}
-
 func NewAdminHandler(auditLogger domain.AuditLogger) *AdminHandler {
 	return &AdminHandler{
 		auditLogger: auditLogger,
@@ -69,12 +62,7 @@ func (h *AdminHandler) GetPasswordPolicy(w http.ResponseWriter, r *http.Request)
 	h.logger.Info(h.module, requestID, "[GetPasswordPolicy]: Processing request")
 
 	cfg := config.GetServerConfig().PasswordConfig()
-	resp := PasswordPolicyResponse{
-		RequireUpper:  cfg.RequireUppercase(),
-		RequireNumber: cfg.RequireNumber(),
-		RequireSymbol: cfg.RequireSymbol(),
-		MinLength:     cfg.MinLength(),
-	}
+	resp := cfg.GetPasswordPolicy()
 
 	web.WriteJSON(w, http.StatusOK, resp)
 }
