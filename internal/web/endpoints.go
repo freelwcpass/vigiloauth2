@@ -7,6 +7,7 @@ const (
 	defaultTokenEndpoint  string = "/tokens"
 	defaultAdminEndpoint  string = "/admins"
 	wellKnown             string = "/.well-known"
+	internalEndpoint      string = "/internal"
 )
 
 var UserEndpoints = struct {
@@ -54,11 +55,11 @@ var OAuthEndpoints = struct {
 }
 
 var AdminEndpoints = struct {
-	GetAuditEvents string
+	GetAuditEvents    string
 	GetPasswordPolicy string
 }{
-	GetAuditEvents: defaultAdminEndpoint + "/audit-events",
-	GetPasswordPolicy: defaultAdminEndpoint + "/password-policy",
+	GetAuditEvents:    defaultAdminEndpoint + "/audit-events",
+	GetPasswordPolicy: internalEndpoint + defaultAdminEndpoint + "/password-policy",
 }
 
 var OIDCEndpoints = struct {
