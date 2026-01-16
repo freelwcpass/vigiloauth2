@@ -56,6 +56,17 @@ func (h *AdminHandler) GetAuditEvents(w http.ResponseWriter, r *http.Request) {
 	web.WriteJSON(w, http.StatusOK, events)
 }
 
+func (h *AdminHandler) GetPasswordPolicy(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	requestID := utils.GetRequestID(ctx)
+	h.logger.Info(h.module, requestID, "[GetPasswordPolicy]: Processing request")
+
+	cfg := config.GetServerConfig().PasswordConfig()
+	resp := cfg.GetPasswordPolicy()
+
+	web.WriteJSON(w, http.StatusOK, resp)
+}
+
 func (h *AdminHandler) buildFilters(w http.ResponseWriter, query url.Values) map[string]any {
 	filters := make(map[string]any)
 	if userID := query.Get("UserID"); userID != "" {

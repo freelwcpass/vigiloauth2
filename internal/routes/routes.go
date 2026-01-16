@@ -24,6 +24,13 @@ func (rc *RouterConfig) getAdminRoutes() RouteGroup {
 				SetHandler(handler.GetAuditEvents).
 				SetDescription("Get audit events").
 				Build(),
+
+			NewRoute().
+				SetMethods(http.MethodGet).
+				SetPattern(web.AdminEndpoints.GetPasswordPolicy).
+				SetHandler(handler.GetPasswordPolicy).
+				SetDescription("Get password policy").
+				Build(),
 		},
 	}
 }
